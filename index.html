@@ -6,6 +6,11 @@
         <link rel="stylesheet" type="text/css" href="css/n00b.min.css" />
     </head>
     <body>
+
+        <!-- NOTIFICATION CENTER -->
+        <div class="notificator"></div>
+        <!-- /NOTIFICATION CENTER -->
+
         <section class="buddy">
             <div class="container">
                 <hgroup>
@@ -55,7 +60,26 @@
             </div>
         </section>
 
+        <section>
+            <div class="container">
+                <h2>2. Notification Container</h2>
+                <p>Customizable notification container that will allow for a notification center on the page.</p>
+                <button id="addNotification">Add Notification</button>
+            </div>
+        </section>
+
         <script src="js/lib/jquery-1.8.3.min.js"></script>
         <script src="js/n00b.js"></script>
+        <script>
+            $('#addNotification').on('click', function() {
+                var opt = {
+                    type: 'general',
+                    title: 'New Notification',
+                    message: '<p>Cool stuff!</p>'
+                };
+
+                notibuddy.add(opt);
+            });
+        </script>
     </body>
 </html>

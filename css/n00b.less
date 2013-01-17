@@ -31,6 +31,7 @@
     text-shadow: 1px 1px 0px lighten(@color, 50%);
 }
 
+// NOTIFICATION CLASSES
 [class*='notification'] {
     color: #333;
     margin-bottom: 8px;
@@ -91,4 +92,14 @@
 
 .notification-warning {
     .notification(@color-warning);
+}
+
+// NOTIFICATION HOLDER
+.notificator {
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 350px;
+    z-index: 9999;
 }

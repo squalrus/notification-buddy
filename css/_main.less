@@ -28,6 +28,20 @@ hgroup {
     h1, h2, h3, h4, h5, h6 { margin: 0; }
 }
 
+button {
+    border: 2px solid darken(@color-buddy, 5%);
+    color: #EEE;
+    cursor: pointer;
+    font-size: 1.2em;
+    padding: 0.5em 1.3em;
+    .gradient();
+    .rounded-corners();
+
+    &:hover {
+        .gradient(lighten(@color-buddy, 1%), darken(@color-buddy, 1%));
+    }
+}
+
 p {
     line-height: 1.4em;
     margin: 0.45em 0;

@@ -8,27 +8,41 @@
 
     'use strict';
 
-    // All attached will become the notibuddy object
-    var notibuddy = {};
+
+    // All attached will become the noob object
+    var noob = function() { };
+
+    //
+    noob.prototype.VERSION = '0.1.0';
+    noob.prototype.noobies = noob.noobies || [];
 
     // Set/get global noobies object
-    window.noobies = window.noobies || [];
+    window.notibuddy = window.notibuddy || new noob;
 
-    // Public varibales
-    notibuddy.VERSION = '0.1.0';
-
-    // Private variables
+    // Notification index
     var idx = 0;
 
     /*
      * add() adds another notification to the manager
      * paramerter ? <Object> the notification specs
      */
-    notibuddy.add = function() {
-        // TODO some notification adding
+    noob.prototype.add = function(options) {
+        /*
+        options.title;
+        options.message;
+
+        <div class="notification-general">
+            <h5>General Notification</h5>
+            <p>Notification information in the form of a paragraph.</p>
+        </div>
+        */
+
+        var $noobie = $('<div>').addClass('notification-' + options.type).append(options.message);
+        $('.notificator').append($noobie);
+
+        // TODO: some notification adding
         idx++;
     };
-
 
     // Build pre-existing notifications on the page
     var notifications = $('[class*=notification-]');
@@ -42,8 +56,7 @@
         close.innerText = unescape('%D7');
         $(notifications[i]).append(close);
 
-        // Attach the existing notifications
-        notibuddy.add();
+        // TODO: Attach the existing notifications
 
         close.addEventListener('click', function(e) {
             $(this).parent('[class*=notification-]').fadeOut();

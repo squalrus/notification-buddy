@@ -5,6 +5,21 @@
 
 @color-buddy:   #06517F;
 
+// MIXINS
+.gradient(@start: @color-buddy, @end: darken(@color-buddy, 10%)) {
+    background-color: @end;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@start), to(@end));
+    background-image: -webkit-linear-gradient(top, @start, @end);
+    background-image:    -moz-linear-gradient(top, @start, @end);
+    background-image:     -ms-linear-gradient(top, @start, @end);
+    background-image:      -o-linear-gradient(top, @start, @end);
+}
+.rounded-corners(@radius: 3px) {
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+    border-radius: @radius;
+}
+
 @import url(_reset.less);
 @import url(_main.less);
 @import url(_layout.less);

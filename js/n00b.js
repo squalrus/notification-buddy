@@ -1,5 +1,6 @@
 /*
- * N0tificati0n Buddy
+ * notification buddy js
+ * Freely distributed under the MIT license.
  * @author Chad Schulz
  * @version 0.1.0
  * @requires jQuery v?.?.?

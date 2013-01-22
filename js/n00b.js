@@ -40,6 +40,17 @@
         var $noobie = $('<div>').addClass('notification-' + options.type).append(options.message);
         $('.notificator').append($noobie);
 
+        // Not DRY
+        var close = document.createElement('a');
+        close.setAttribute('class', 'close');
+        close.innerText = unescape('%D7');
+        $noobie.append(close);
+
+        close.addEventListener('click', function(e) {
+            $(this).parent('[class*=notification-]').fadeOut();
+            e.preventDefault();
+        });
+
         // TODO: some notification adding
         idx++;
     };

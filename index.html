@@ -1,39 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Test Harness | Notification Buddy</title>
     <title>n0tificati0n buddy</title>
     <link rel="stylesheet" type="text/css" href="http://chadschulz.com/css/cs.min.css" />
     <link rel="stylesheet" type="text/css" href="http://chadschulz.com/css/cs.responsive.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="css/styles.min.css" />
+    <!-- PANELS -->
     <link rel="stylesheet" type="text/css" href="css/n00b.min.css" />
 </head>
 <body>
 
-    <!-- NOTIFICATION CENTER -->
-    <div class="notificator"></div>
-    <!-- /NOTIFICATION CENTER -->
-
-    <section class="buddy">
-        <div class="container">
-            <hgroup>
-                <h1>N0TIFICATI0N BUDDY (n00b)</h1>
-                <h4>the notification manager anyone can use</h4>
-            </hgroup>
-        </div>
-    </section>
+    <div class="container">
+        <h1>Test Harness</h1>
+    </div>
 
     <section>
         <div class="container">
-            <h2>Introduction</h2>
-            <p>It's great to show your users that they need some more information, have done something right, or done something wrong. This tool allows you a simple style framework to use for general page notifications if you prefer. It also allows a notification system to track what your users are doing, and really shines when using a single-page application and can track the notifications through the app's complete lifecycle.</p>
-        </div>
-    </section>
-
-    <section>
-        <div class="container">
-            <h2>1. Styled Notifications</h2>
-            <p>Example of the basic styling of the notifications, and how they could be used on their own on the page without a manager.</p>
+            <h2>Notifications</h2>
             <p>Built-in markup within the notification: <em>h5</em>, <em>p</em>, <em>ul/ol/li</em>.</p>
 
             <!-- NOTIFICATION : GENERAL -->
@@ -65,16 +49,19 @@
 
     <section>
         <div class="container">
-            <h2>2. Notification Container</h2>
-            <p>Customizable notification container that will allow for a notification center on the page.</p>
-            <button id="addNotification">Add Notification</button>
+            <h2>Notification Actions</h2>
+            <a href="#" id="addNotification" class="btn">Add Notification</a>
+            <a href="#" id="removeAllNotifications" class="btn">Remove All Notifications</a>
         </div>
     </section>
 
     <script src="js/lib/jquery-1.8.3.min.js"></script>
     <script src="js/n00b.js"></script>
     <script>
+
         $('#addNotification').on('click', function(event) {
+            event.preventDefault();
+
             var opt = {
                 type: 'general',
                 title: 'New Notification',
@@ -82,6 +69,13 @@
             };
 
             notibuddy.add(opt);
+        });
+
+
+        $('#removeAllNotifications').on('click', function(event) {
+            event.preventDefault();
+
+            notibuddy.closeAll();
         });
     </script>
 </body>

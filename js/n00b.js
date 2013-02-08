@@ -9,71 +9,87 @@
 
     'use strict';
 
-
     // All attached will become the noob object
-    var noob = function() { };
+    var noob = function(opts) {
 
-    //
-    noob.prototype.VERSION = '0.1.0';
-    noob.prototype.noobies = noob.noobies || [];
+        this.defaults = {
+            position: 'Ne'
+        };
 
-    // Set/get global noobies object
-    window.notibuddy = window.notibuddy || new noob;
+        this.VERSION = '0.1.0';
+        this.noobies = [];
 
-    // Notification index
-    var idx = 0;
+        // Notification index
+        this.idx = 0;
+
+        this.init();
+    };
+
+    noob.prototype.init = function() {
+
+        this.notificator();
+
+        // Grab pre-existing notifications on the page
+        var notifications = $('[class*=notification-]');
+
+        // For each existing notification add close with event listener
+        for (var i=0; i<notifications.length; i++) {
+            addNotification(notifications[i], this);
+        }
+    };
+
+    noob.prototype.notificator = function() {
+        var notificator = document.createElement('div');
+        notificator.className = 'notificator';
+        $('body').append(notificator);
+
+        var loc = this.defaults.position.toLowerCase();
+
+        if (loc === 'nw' || loc === 'ne' || loc === 'n' || loc === 's')
+            $('.notificator').addClass('location-' + loc);
+    };
+
+    window.notibuddy = new noob;
 
     /*
      * add() adds another notification to the manager
      * paramerter ? <Object> the notification specs
      */
     noob.prototype.add = function(options) {
-        /*
-        options.title;
-        options.message;
-
-        <div class="notification-general">
-            <h5>General Notification</h5>
-            <p>Notification information in the form of a paragraph.</p>
-        </div>
-        */
 
         var $noobie = $('<div>').addClass('notification-' + options.type).append(options.message);
         $('.notificator').append($noobie);
 
-        // Not DRY
-        var close = document.createElement('a');
-        close.setAttribute('class', 'close');
-        close.innerText = unescape('%D7');
-        $noobie.append(close);
-
-        close.addEventListener('click', function(e) {
-            $(this).parent('[class*=notification-]').fadeOut();
-            e.preventDefault();
-        });
-
-        // TODO: some notification adding
-        idx++;
+        addNotification($noobie, this);
     };
 
-    // Build pre-existing notifications on the page
-    var notifications = $('[class*=notification-]');
+    function addNotification(notification, ctx) {
 
-    // For each existing notification add close with event listener
-    for (var i=0; i<notifications.length; i++) {
+        var $notification = $(notification);
 
-        // var close = '<a href="#" class="close">&times;</a>';
+        // Create the close element
         var close = document.createElement('a');
         close.setAttribute('class', 'close');
         close.innerText = unescape('%D7');
-        $(notifications[i]).append(close);
 
-        // TODO: Attach the existing notifications
+        // Attach close element
+        $notification.append(close);
 
-        close.addEventListener('click', function(e) {
+        // Update index
+        $notification.data('id', ctx.idx);
+        ctx.idx++;
+
+        // Attach event listener
+        close.addEventListener('click', function(event) {
+            event.preventDefault();
+            console.log('click');
             $(this).parent('[class*=notification-]').fadeOut();
-            e.preventDefault();
         });
-    }
+    };
+
+    noob.prototype.closeAll = function() {
+
+        $('[class*=notification-] a.close').trigger('click');
+    };
 
 })( jQuery );
